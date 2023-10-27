@@ -1,0 +1,344 @@
+//2_1_create a class "Shape" with 2 attributes, "width" and "height". Make sure one can not access these attributes directly.
+//    provide accessor methods on these attributes and allow them to call from outside of your class.
+
+package Day2_Assign;
+import java.util.*;
+
+class shape
+{
+	private int width;
+	private int height;
+	
+	public void setWidth(int width) 
+	{
+		this.width = width;
+	}
+	
+	public void setHeight(int height) 
+	{
+		this.height = height;
+	}
+	
+	public int getWidth() 
+	{
+		return width;
+	}
+	
+	public int getHeight() 
+	{
+		return height;
+	}
+}
+
+public class task1 {
+
+	public static void main(String[] args) {
+		
+		shape s1 = new shape();
+		s1.setHeight(100);
+		s1.setWidth(50);
+		
+		System.out.println("Width = "+s1.getHeight());
+		System.out.println("Height = "+s1.getWidth());
+		
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+2_2_ Define a class "MyClass" and make sure clients can instantiate it , 
+     a) without any argument
+     b) with one int argument
+     c) with two int arguments
+*/
+
+package Day2_Assign;
+import java.util.*;
+
+class MyClass
+{
+	MyClass ()
+	{
+		System.out.println("no-arg default constructor");
+	}
+	
+	MyClass (int x)
+	{
+		System.out.println("one-param constructor = "+x);
+	}
+	
+	MyClass (int a, int b)
+	{
+		System.out.println("two-param constructor ="+a+" & "+b);
+	}
+	
+}
+
+public class task2 {
+
+	public static void main(String[] args) {
+		
+		MyClass s1 = new MyClass();
+		MyClass s2 = new MyClass(10);
+		MyClass s3 = new MyClass(20,30);
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*2_3_Define a class "Emp" with private static member "int cnt".
+How will u make sure that outsiders can read the value of cnt ?
+*/
+
+package Day2_Assign;
+import java.util.*;
+
+public class task3 {
+
+class Emp
+{
+	private static int cnt=100;
+	
+	public static int getCnt()
+	{
+		return cnt;
+	}
+	
+}
+	public static void main(String[] args) 
+	{
+		System.out.println("Employee = "+Emp.getCnt());
+	}	
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*2_4_
+Define a class "DemoOb". 
+create an instance of it.
+now create a reference and assign the reference created in the above statement.
+	Discuss what happens?
+Now since u have 2 references, take one of the reference and assign a new instance of the class.
+	Discuss what happens?
+(For ur discussion, write necessary comments in the program)
+*/
+
+package Day2_Assign;
+import java.util.*;
+
+public class task4 
+{
+public static void main(String[] args) 
+	{
+		DemoOb ob1=new DemoOb();
+		DemoOb ob2=ob1;
+		ob1=new DemoOb();  
+	}
+}
+
+class DemoOb
+{
+	DemoOb()
+	{
+	System.out.println("Inside Default Constructor");		
+	}
+}
+
+/*
+First created the reference ob1 and assign this reference (ob1) to one object on heap and then
+Initialized another reference obj2 with same object. Now new object is created then now 
+reference (ob1) referring to the new object and stop referring the old object
+*/
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*2_5_Define 3 classes A , B and C
+  in all these classes create static and nonstatic variables as well as methods.
+  Now Define a class "Demo" ,in which define "main" function. From this main function try to access all the members of A ,B  and C.
+*/
+
+package Day2_Assign;
+
+public class task5_Demo {
+
+	public static void main(String[] args) 
+	{
+	 A a1 = new A();
+	 a1.setNum(150);
+	 System.out.println(a1.getNum());
+	 System.out.println(A.getA());
+	 
+	 B b1 = new B();
+	 b1.setNum(143.55f);
+	 System.out.println(b1.getNum());
+	 System.out.println(B.getA());
+	 
+	 C c1 = new C();
+	 c1.setNum(1000);
+	 System.out.println(c1.getNum());
+	 
+	}
+
+}
+
+class A
+{
+	private int num;
+		
+	public int getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(int num) 
+	{
+		this.num = num;
+	}
+
+	private static int A=10;
+
+	public static int getA() 
+	{
+		return A;
+	}
+	
+}
+
+class B
+{
+	private float num;
+	
+	public float getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(float num) 
+	{
+		this.num = num;
+	}
+
+	private static float A=10.5f;
+
+	public static float getA() 
+	{
+		return A;
+	}
+	
+}
+
+class C
+{
+	private int num;
+	
+	public int getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(int num) 
+	{
+		this.num = num;
+	}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*2_6_Define 3 classes A , B and C
+  in all these classes create static and nonstatic variables as well as methods.
+  Now Define a class "Demo" ,in which define "main" function. From this main function try to access all the members of A ,B  and C.
+*/
+
+package Day2_Assign;
+
+public class task6 {
+
+	public static void main(String[] args) 
+	{
+	 A a1 = new A();
+	 a1.setNum(150);
+	 System.out.println(a1.getNum());
+	 System.out.println(A.getA());
+	 
+	 B b1 = new B();
+	 b1.setNum(143.55f);
+	 System.out.println(b1.getNum());
+	 System.out.println(B.getA());
+	 
+	 C c1 = new C();
+	 c1.setNum(1000);
+	 System.out.println(c1.getNum());
+	 
+	}
+
+}
+
+class A
+{
+	private int num;
+		
+	public int getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(int num) 
+	{
+		this.num = num;
+	}
+
+	private static int A=10;
+
+	public static int getA() 
+	{
+		return A;
+	}
+	
+	static
+	{
+		System.out.println("inside Static Initialser of A");
+	}
+	
+}
+
+class B
+{
+	private float num;
+	
+	public float getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(float num) 
+	{
+		this.num = num;
+	}
+
+	private static float A=10.5f;
+
+	public static float getA() 
+	{
+		return A;
+	}
+	
+	static
+	{
+		System.out.println("inside Static Initialser of B");
+	}
+	
+}
+
+class C
+{
+	private int num;
+	
+	public int getNum() 
+	{
+		return num;
+	}
+
+	public void setNum(int num) 
+	{
+		this.num = num;
+	}
+	
+	static
+	{
+		System.out.println("inside Static Initialser of C");
+	}
+}
