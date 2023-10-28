@@ -1,0 +1,113 @@
+using System;
+
+
+namespace day6_q1
+{
+    class Account
+    {
+        static int id;
+        string name;
+        double balance;
+        int accid;
+        
+
+        public Account(string name, double balance)
+        {
+
+            accid = ++id;
+            Name = name;
+            Balance = balance;
+
+        }
+        public double ID
+        {
+            get { return accid; }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value.Length > 10)
+                {
+                    throw new Exception("Name length should be less than 10");
+                }
+                else
+                {
+                    name = value;
+                }
+            }
+        }
+        public double Balance
+        {
+            get { return balance; }
+            protected set
+            {
+                balance = value;
+            }
+        }
+        public virtual double Withdraw(double amount)
+        {
+            return 0;
+        }
+
+        public double Deposit(double amount)
+        {
+            return balance = balance + amount;
+        }
+
+        public string display()
+        {
+            return string.Format(" the id is={0}the name is ={1}and balance is ={2}", id, name, balance);
+        }
+
+    }
+    class Current : Account
+    {
+        public Current(string name, double balance) : base(name, balance)
+        {
+
+        }
+        public override double Withdraw(double amount)
+        {
+            return Balance = Balance - amount;
+        }
+
+
+    }
+    class Saving : Account
+    {
+        public Saving(string name, double balance) : base(name, balance)
+        {
+
+        }
+        public override double Withdraw(double amount)
+        {
+            return Balance = Balance - amount;
+        }
+
+    }
+
+    internal class Program
+    {
+
+        public static void Main(string[] args)
+        {
+            Account a = new Saving("Amar", 30000);
+            Account b = new Current("Shrunkla", 50000);
+
+            Console.WriteLine(a.Withdraw(50));
+            Console.WriteLine(b.Withdraw(50));
+
+            Console.WriteLine(a.Deposit(100));
+            Console.WriteLine(b.Deposit(100));
+
+            Console.WriteLine(a.display());
+            Console.WriteLine(b.display());
+
+
+
+
+        }
+    }
