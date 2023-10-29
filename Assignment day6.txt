@@ -1,0 +1,37 @@
+//2) Write a method which will accept two number and return all even number between it as array and also give count in out variable.
+
+
+namespace ConsoleApp4
+{
+    internal class Program
+    {
+        public static int[] doeven(int start,int end,out int count ) 
+        {
+            int[]even=new int[((end-start)+1)/2];
+            count =0;
+            while(start <= end)
+            {
+                if(start%2==0)
+                {
+                    even[count++] = start;
+                    start += 2;
+
+                }
+                else
+                {
+                    even[count++] = start+1;
+                    start += 2;
+                }
+            }
+            return even;
+        }
+        static void Main(string[] args)
+        {
+            int c;
+            int[] result = doeven(3, 40, out c);
+            foreach(int i in result)
+                Console.WriteLine(i);
+
+        }
+    }
+}
