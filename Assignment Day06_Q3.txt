@@ -1,0 +1,144 @@
+
+//3)Create class Account having member variable id, name, balance.
+//Write getter/setter for id, name and balance
+//create method deposit which will increase balance
+//Create two child class currentaccount and saving account
+//It has member type,
+//In both the class create withdraw method who’ s job is to reduce balance.
+//In currentaccount negative balance allowed
+//In savingaccount –ve balance not allowed.
+//When you load application it should print name of bank.
+//New Savingaccount(1,”Raj”,50000,” “saving”)
+
+
+
+
+namespace Day6_q3
+{
+    
+       public class Account
+        {
+            int id;
+            static int getid;
+           protected double balance;
+            string name;
+
+            public string Name
+            {
+                get {return name;} 
+                set {name=value; }
+            }
+            public double Balance
+            {
+                get { return balance; }
+                set { balance = value; }
+            }
+            public int Id
+            {
+                get { return id; }
+            }
+
+            static Account()
+            {
+                Console.WriteLine("Sujata co.operative bank"); 
+            }
+            public Account(string name,double balance)
+            {
+                id= ++getid;
+                Name = name;       
+                Balance = balance; 
+            }
+
+            public void deposit(int amount)
+            {
+              if (amount > 0)
+                balance += amount;
+            }
+
+
+
+        }
+
+        public class currentaccount : Account
+        {
+        public currentaccount(string name,double balance):base(name,balance)
+        {
+
+        }
+
+        public void withdraw(int amount)
+        {
+            
+                Balance -= amount;
+        }
+
+        public override string ToString()
+        {
+            return ($"Acc id id={Id} Name is = {Name} Balance is={Balance} Curent Account");
+        }
+    }
+
+        public class saving : Account
+        {
+        string style;
+        public saving(string name, double balance) : base(name, balance)
+        {
+
+        }
+
+        public void withdraw(int amount)
+        {
+            if (Balance > 0)
+                Balance -= amount;
+        }
+
+        public override string ToString()
+        {
+            return ($"Acc id id={ Id} Name is = { Name} Balance is={ Balance} Saving account");
+        } 
+
+
+    }
+
+    public class main
+    {
+        public static void Withdraw(Account ref1)
+        {
+            if(ref1 is saving)
+            {
+                saving temp = (saving)ref1;
+                temp.withdraw(353);
+                Console.WriteLine(temp.ToString());
+            }
+        }
+        static void Main(string[] args)
+        {
+            Account s1 = new saving("shrisha", 10000);
+            Console.WriteLine(s1.ToString());
+           
+            Withdraw(s1);
+            Console.WriteLine("--------------------------------");
+
+            currentaccount s2 = new currentaccount("Aarti", 50000);
+            Console.WriteLine(s2.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("after deposit 20000 in shrishas account");
+            s1.deposit(20000);
+            Console.WriteLine(s1.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("after withdraw 10000 in aartis account");
+            s2.withdraw(10000);
+            Console.WriteLine(s2.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("minus balance in account");
+            s2.withdraw(50000);
+            Console.WriteLine(s2.ToString());
+
+
+
+        }
+    }
+}
