@@ -1,0 +1,192 @@
+/*Create class Account having member variable id, name, balance
+Id is autoincrement it has getter property
+Name and balance need getter setter property
+//Ensure when you open account amt should not be <1
+Declare static double intrate = 0.07;
+It has deposit method who’s job is to increase balance.
+Create two child class Savingaccount, Currentaccount
+It has fields typeofaccount
+In Savingaccount, child class it has withdraw method who’s job is to reduce balance. It is a rule to maintain minimum balance of rs1000 so declare 
+const int minbal=1000 
+ In Currentaccount, child class it has withdraw method who’s job is to reduce balance here –ve balance is allowed.
+Create object of two child class and do the transaction
+In Account class write public override string ToString() { }
+which will display id name balance.
+*/
+
+//____________________________________________________________________________________________________________________________________________________
+
+namespace Day6_q3
+{
+    
+       public class Account
+        {
+            int id;
+            static int getid;
+            protected double balance;
+            string name;
+            public const int minbal = 1000;
+            static double intrate = 0.7;
+            public double Intrest;
+            public string Name
+            {
+                get {return name;} 
+                set {name=value; }
+            }
+            public double Balance
+            {
+                get { return balance; }
+                set { balance = value; }
+            }
+            public int Id
+            {
+                get { return id; }
+            }
+
+            static Account()
+            {
+                Console.WriteLine("Sujata co.operative bank"); 
+            }
+            public Account(string name,double balance)
+            {
+                id= ++getid;
+                Name = name;
+            if (balance > 0)
+                Balance = balance;
+            else
+                throw new Exception("amount should be required more than zero");
+                
+        }
+
+            public void deposit(int amount)
+            {
+            intrest();
+              if (amount > 0)
+                balance += amount;
+            }
+
+            public double intrest()
+           {
+            this.Intrest = this.balance * intrate;
+            this.balance += this.Intrest;
+            return this.balance;
+
+
+            }
+
+        }
+    
+   //_____________________________________________________________________________________________________________________________________________________
+    public class currentaccount : Account
+        {
+        public currentaccount(string name,double balance):base(name,balance)
+        {
+
+        }
+
+        public void withdraw(int amount)
+        {
+            intrest();
+                Balance -= amount;
+        }
+
+        public override string ToString()
+        {
+            return ($"Acc id id={Id} Name is = {Name} Balance is={Balance} intrest is={Intrest} Curent Account");
+        }
+    }
+
+
+    //_____________________________________________________________________________________________________________________________________________________
+        public class saving : Account
+        {
+        string style;
+        public saving(string name, double balance) : base(name, balance)
+        {
+
+        }
+
+        public void withdraw(int amount)
+        {
+            intrest();
+                Balance -= amount;
+            if (Balance < minbal)
+                throw new Exception("balance not should be less than 1000");
+        }
+
+        public override string ToString()
+        {
+            return ($"Acc id id={ Id} Name is = { Name} Balance is={ Balance} intrest is={Intrest} Saving account");
+        } 
+
+
+    }
+
+   //____________________________________________________________________________________________________________________________
+    public class main
+    {
+        public static void Withdraw(Account ref1)
+        {
+            if(ref1 is saving)
+            {
+                saving temp = (saving)ref1;
+                temp.withdraw(500);
+                Console.WriteLine(temp.ToString());
+            }
+        }
+        static void Main(string[] args)
+        {
+            Account s1 = new saving("shrisha", 10000);
+            Console.WriteLine(s1.ToString());
+           
+            Withdraw(s1);
+            Console.WriteLine("--------------------------------");
+
+            currentaccount s2 = new currentaccount("Aarti", 50000);
+            Console.WriteLine(s2.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("after deposit 20000 in shrishas account");
+            s1.deposit(20000);
+            Console.WriteLine(s1.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("after withdraw 10000 in aartis account");
+            s2.withdraw(10000);
+            Console.WriteLine(s2.ToString());
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("minus balance in account");
+            s2.withdraw(50000);
+            Console.WriteLine(s2.ToString());
+
+
+            Console.WriteLine("--------------------------------");
+
+            saving s3 = new saving("Akshay", 30000);
+            try
+            {
+                s3.withdraw(29500);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            try {
+                saving s4 = new saving("sushil", 0);
+             }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+
+
+
+
+        }
+    }
+}
