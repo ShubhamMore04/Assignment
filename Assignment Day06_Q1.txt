@@ -1,0 +1,53 @@
+Q1
+/*Write a method which will return sum of digit and using out variable let it send count of digit also.
+Eg. input 123  return(6) in out variable (3)
+ */
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace q1day5
+{
+    class quest1
+    {
+        public int sumofdigi(int x,out int z)
+        {
+            int a;
+            int sum=0;
+            int k=0;
+
+            while(x != 0)
+            {
+                int r = x % 10;
+                sum = sum + r;
+                x = x / 10;
+                k++;
+            }
+           
+            z = k;
+            return sum;
+        }
+
+
+    }
+
+     class Program
+    {
+        static void Main(string[] args)
+        {
+            quest1 q1 = new quest1();
+            int a = int.Parse(Console.ReadLine());  
+            
+           int b= q1.sumofdigi(a, out int z);
+            
+            Console.WriteLine(z);
+            Console.WriteLine(b);
+
+        }
+    }
+}
