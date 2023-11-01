@@ -1,0 +1,93 @@
+// 1)Demonstrate an anonymous method.
+using System;
+// Declare a delegate type.
+delegate void CountIt();
+class AnonMethDemo
+{
+    static void Main()
+    {
+        // Here, the code for counting is passed
+        // as an anonymous method.
+        CountIt count = delegate        {
+            // This is the block of code passed to the delegate.
+            for (int i = 0; i <= 5; i++)
+                Console.WriteLine(i);
+        }; // notice the semicolon
+        count();
+    }
+}
+
+2)using System;
+// Notice that CountIt now has a parameter.
+delegate void CountIt(int end);
+
+class AnonMethDemo2
+{
+    static void Main()
+    {
+        // Here, the ending value for the count
+        // is passed to the anonymous method.
+        CountIt count = delegate(int end)
+        {
+            for (int i = 0; i <= end; i++)
+                Console.WriteLine(i);
+        };
+        count(3);
+        Console.WriteLine();
+        count(5);
+    }
+}
+
+3)using System;
+
+delegate void CountIt(string name);
+
+class AnonMethDemo2
+{
+    static void Main()
+    {
+       
+        CountIt displ = delegate (string name)
+        {
+            for (int i = 0; i <= 5; i++)
+                Console.WriteLine(name);
+            
+        };
+        displ("Hello everyone");
+        Console.WriteLine();
+        displ("Akshay here from Pg-Dac");
+    }
+}
+
+
+//4)add and multiply two numbers using multicast deligate with anonymous method
+
+using System;
+
+delegate void CountIt(int a,int b);
+
+    class AnonMethDemo2
+{
+    static void Main()
+    {
+       
+        CountIt count = delegate (int a,int b)
+        {
+            int sum = a + b;
+            Console.WriteLine("The sum is "+sum);
+
+            
+        };
+
+        count += delegate ( int a,int b)
+        {
+            int multi = a * b;
+            Console.WriteLine("Multiplication is "+multi);
+        };
+        count(10,20);
+        Console.WriteLine();
+       
+    }
+}
+
+
