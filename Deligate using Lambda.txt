@@ -1,0 +1,45 @@
+1)
+using System;
+//using lambda addition of two elements
+
+public delegate int IntOp(int x);
+
+public class Math
+{
+   public IntOp m = n => n * n;
+   
+
+}
+class AnonMethDemo2
+{
+    static void Main()
+    {
+        
+        Math m1 = new Math();
+        int sum=m1.m(67);
+        Console.WriteLine(sum);
+    }
+}
+
+2)
+using System;
+//using lambda addition of two elements
+
+public delegate int IntOp(int x,int y);
+
+public class Math
+{
+   public IntOp m = (n,a) => n - a;
+   
+
+}
+class AnonMethDemo2
+{
+    static void Main()
+    {
+        
+        Math m1 = new Math();
+        int sum=m1.m(67,15);
+        Console.WriteLine(sum);
+    }
+}
