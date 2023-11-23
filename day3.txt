@@ -1,0 +1,24 @@
+WITH RECURSIVE FindSubstring AS (
+       SELECT
+         1 AS Occurrence,
+         LOCATE('hello', 'hello world and hello people') AS Position
+       UNION
+       SELECT
+         Occurrence + 1,
+         CASE WHEN LOCATE('hello', 'hello world and hello people', Position + 1) > 0
+              THEN LOCATE('hello', 'hello world and hello people', Position + 1)
+              ELSE 0
+         END
+       FROM
+         FindSubstring
+       WHERE
+         Position > 0;
+     )
+     SELECT
+       Occurrence,
+       Position
+     FROM
+       FindSubstring
+     WHERE
+       Position > 0;
+
