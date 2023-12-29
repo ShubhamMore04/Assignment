@@ -1,197 +1,107 @@
-Queries:--->
+package hashing;
 
-1. Display the name of all employees whose salary is between 500 and 1300.
+import java.util.Scanner;
 
-mysql> select ename, salary from emp where salary between 500 and 1300;
-+-------+--------+
-| ename | salary |
-+-------+--------+
-| a     |   1000 |
-| b     |   1023 |
-| h     |    523 |
-| j     |    627 |
-| k     |    978 |
-| m     |    746 |
-| p     |    821 |
-| r     |    546 |
-| s     |    717 |
-| t     |    817 |
-| u     |    888 |
-| a3    |    653 |
-| a8    |    845 |
-| b1    |   1212 |
-| b2    |   1242 |
-| b5    |    555 |
-+-------+--------+
------------------------------------------------------------------------------
-2. Display the name of all employees who are in HR dept
-
-mysql> select ename, deptname
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> where deptname = 'hr';
-+-------+----------+
-| ename | deptname |
-+-------+----------+
-| a     | HR       |
-| e     | HR       |
-| g     | HR       |
-| i     | HR       |
-| j     | HR       |
-| l     | HR       |
-| m     | HR       |
-| n     | HR       |
-| q     | HR       |
-| v     | HR       |
-| x     | HR       |
-| z     | HR       |
-| a1    | HR       |
-| a2    | HR       |
-| a4    | HR       |
-| a6    | HR       |
-| a8    | HR       |
-| b1    | HR       |
-| b5    | HR       |
-| b7    | HR       |
-| b9    | HR       |
-+-------+----------+
-
------------------------------------------------------------------------------
-
-3. Display the name of all the dept and count of all the employees in that dept.
-
-mysql> select deptname, count(eid) Total_emp
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> group by deptname;
-+----------+-----------+
-| deptname | Total_emp |
-+----------+-----------+
-| HR       |        21 |
-| IT       |        10 |
-| Finance  |        14 |
-+----------+-----------+
-3 rows in set (0.00 sec)
-
------------------------------------------------------------------------------
-4. Display the name , deptname and  salary of the employee whose salary is highest.
-
-mysql> select ename, deptname, salary
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> order by salary desc limit 1;
-+-------+----------+--------+
-| ename | deptname | salary |
-+-------+----------+--------+
-| x     | HR       |  28222 |
-+-------+----------+--------+
-1 row in set (0.00 sec)
------------------------------------------------------------------------------
-
-5. Display the name , deptname and  salary of the employee whose salary is lowest.
-
-mysql> select ename, deptname, salary
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> order by salary limit 1;
-+-------+----------+--------+
-| ename | deptname | salary |
-+-------+----------+--------+
-| a5    | IT       |      3 |
-+-------+----------+--------+
-1 row in set (0.00 sec)
------------------------------------------------------------------------------
-
-6. Display the name , deptname of employee whose salary is second highest.
-
-mysql> select ename, deptname, salary
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> order by salary desc limit 1,1;
-+-------+----------+--------+
-| ename | deptname | salary |
-+-------+----------+--------+
-| w     | Finance  |  20001 |
-+-------+----------+--------+
-1 row in set (0.00 sec)
------------------------------------------------------------------------------
-
-7. display the name, deptname of top five earning employees.
-
-mysql> select ename, deptname, salary
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> order by salary desc limit 5;
-+-------+----------+--------+
-| ename | deptname | salary |
-+-------+----------+--------+
-| x     | HR       |  28222 |
-| w     | Finance  |  20001 |
-| y     | Finance  |  19212 |
-| z     | HR       |  12111 |
-| a2    | HR       |   9238 |
-+-------+----------+--------+
-5 rows in set (0.00 sec)
------------------------------------------------------------------------------
-
-8. Display the deptname, name of top 5 earning employees from each dept.
-
-mysql> select * from (
-    -> select ename, deptname, salary, row_number() over (partition by deptname order by salary desc) rk
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid) as t
-    -> where rk<=5;
-+-------+----------+--------+----+
-| ename | deptname | salary | rk |
-+-------+----------+--------+----+
-| w     | Finance  |  20001 |  1 |
-| y     | Finance  |  19212 |  2 |
-| b4    | Finance  |   4444 |  3 |
-| f     | Finance  |   2023 |  4 |
-| o     | Finance  |   1999 |  5 |
-| x     | HR       |  28222 |  1 |
-| z     | HR       |  12111 |  2 |
-| a2    | HR       |   9238 |  3 |
-| v     | HR       |   9029 |  4 |
-| b7    | HR       |   6432 |  5 |
-| b8    | IT       |   4532 |  1 |
-| b3    | IT       |   4212 |  2 |
-| c1    | IT       |   2324 |  3 |
-| b2    | IT       |   1242 |  4 |
-| b     | IT       |   1023 |  5 |
-+-------+----------+--------+----+
-15 rows in set (0.00 sec)
------------------------------------------------------------------------------
-	
-9. Display the avg salary of each dept.
-
-mysql> select deptname, avg(salary) as avg_salary
-    -> from emp join dept
-    -> on emp.deptid=dept.deptid
-    -> group by deptname;
-+----------+------------+
-| deptname | avg_salary |
-+----------+------------+
-| HR       |  3855.8571 |
-| IT       |  1540.7000 |
-| Finance  |  3814.2143 |
-+----------+------------+
-3 rows in set (0.00 sec)
------------------------------------------------------------------------------
-
-10.Display the min and max salary of each dept.
-
-mysql> select deptname, min(salary), max(salary)
-    -> from emp right join dept
-    -> on emp.deptid=dept.deptid
-    -> group by deptname;
-+----------+-------------+-------------+
-| deptname | min(salary) | max(salary) |
-+----------+-------------+-------------+
-| HR       |          16 |       28222 |
-| IT       |           3 |        4532 |
-| Finance  |          23 |       20001 |
-| OPR      |        NULL |        NULL |
-+----------+-------------+-------------+
-4 rows in set (0.00 sec)
------------------------------------------------------------------------------
+public class Bucketting 
+{
+	int array[][],maxsize,count,row,column;
+	  
+	  void init(int size)
+	  {
+		  count=0;
+		   row=size;
+		 column=size/2;
+		  array=new int[row][column];
+		  for(int i=0;i<row;i++)
+		  {
+			  for(int j=0;j<column;j++)
+			  {
+				  array[i][j]=-1;
+			  }
+		  }
+	  }
+	  
+	  void insert(int data)
+	  {
+		int index=data%row;
+			
+				for(int i=0;i<column;i++)
+				{
+					
+					if(array[index][i]==-1)
+					{
+						array[index][i]=data;
+						count++;
+						break;
+					}
+				}
+	  }	
+	  
+	  boolean isfull()
+	  {
+		  if(count==row*column)
+			return true;
+		  else
+			  return false;
+	  }
+	  
+	  void print()
+	  {
+		  for(int i=0;i<row;i++)
+		  {
+			  System.out.print("@"+i+"-----> ");
+			  for(int j=0;j<column;j++) 
+			  {
+				  if(array[i][j]!=-1)
+				  {
+					 System.out.print(array[i][j]+" ");  
+				  }
+			  }
+			  System.out.println();
+		  }
+	  }
+	public static void main(String[] args) 
+	{
+		Scanner in=new Scanner(System.in);
+		Bucketting p=new Bucketting();
+		p.init(10);
+		int ch;
+		
+		do
+		{
+			System.out.println("1:Insert\n2:print\nEnter 0 to exit");
+			 ch=in.nextInt();
+			switch(ch)
+			{
+			case 1:
+			{	
+				if(p.isfull())
+				{
+					System.out.println("HashTAble is Full");
+				}
+				else
+				{
+					System.out.println("enter data to Hash");
+					int k=in.nextInt();
+					p.insert(k);
+					System.out.println(k+" inserted");
+				}
+				break;
+			}
+			case 2:
+				if(p.count==0)
+					System.out.println("empty");
+				else
+                  p.print();
+              break;
+              case 0:
+                  System.out.println("Exiting....tata");
+                  break;
+              default:
+                  System.out.println("Wrong input");
+                  break;
+			}
+		}
+		while(ch!=0);
+	}
+}
